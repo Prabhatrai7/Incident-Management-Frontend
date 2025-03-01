@@ -1,0 +1,65 @@
+<div class="incident-list-container">
+    <h2>My Incidents</h2>
+
+    <div class="search-container">
+        <form [formGroup]="searchForm" (ngSubmit)="searchIncident()">
+            <div class="search-form">
+                <input type="text" formControlName="incidentId" placeholder="Search by Incident ID"
+                    class="search-input">
+                <button type="submit" class="btn-search" [disabled]="searchForm.invalid">Search</button>
+                <button type="button" class="btn-clear" (click)="clearSearch()">Clear</button>
+            </div>
+        </form>
+
+        <div *ngIf="searchError" class="alert alert-danger">
+            {{ searchError }}
+        </div>
+    </div>
+
+    <div *ngIf="searchResult" class="search-results">
+        <h3>Search Result</h3>
+        <div class="incident-card">
+            <div class="incident-header">
+                <span class="incident-id">{{ searchResult.incidentId }}</span>
+                <span class="incident-status" [ngClass]="searchResult.status.toLowerCase()">{{ searchResult.status
+                    }}</span>
+            </div>
+            <div class="incident-body">
+                <p><strong>Reporter:</strong> {{ searchResult.reporterName }}</p>
+                <p><strong>Details:</strong> {{ searchResult.details }}</p>
+                <p><strong>Reported Date:</strong> {{ searchResult.reportedDate | date:'medium' }}</p>
+                <p><strong>Priority:</strong> {{ searchResult.priority }}</p>
+            </div>
+            <div class="incident-actions" *ngIf="isIncidentEditable(searchResult)">
+                <button class="btn-edit" [routerLink]="['/incidents/edit', searchResult.incidentId]">Edit</button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!searchResult">
+        <div class="create-incident">
+            <button class="btn-create" routerLink="/incidents/create">Create New Incident</button>
+        </div>
+
+        <div *ngIf="incidents.length === 0" class="no-incidents">
+            <p>You haven't created any incidents yet.</p>
+        </div>
+
+        <div *ngIf="incidents.length > 0" class="incident-grid">
+            <div *ngFor="let incident of incidents" class="incident-card">
+                <div class="incident-header">
+                    <span class="incident-id">{{ incident.incidentId }}</span>
+                    <span class="incident-status" [ngClass]="incident.status.toLowerCase()">{{ incident.status }}</span>
+                </div>
+                <div class="incident-body">
+                    <p><strong>Details:</strong> {{ incident.details }}</p>
+                    <p><strong>Reported Date:</strong> {{ incident.reportedDate | date:'medium' }}</p>
+                    <p><strong>Priority:</strong> {{ incident.priority }}</p>
+                </div>
+                <div class="incident-actions" *ngIf="isIncidentEditable(incident)">
+                    <button class="btn-edit" [routerLink]="['/incidents/edit', incident.incidentId]">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

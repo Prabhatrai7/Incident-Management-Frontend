@@ -1,0 +1,152 @@
+<div class="register-container">
+    <div class="register-card">
+        <h2>Register</h2>
+
+        <div class="tabs">
+            <div class="tab" [class.active]="activeTab === 'individual'" (click)="setActiveTab('individual')">Individual
+            </div>
+            <div class="tab" [class.active]="activeTab === 'enterprise'" (click)="setActiveTab('enterprise')">Enterprise
+            </div>
+            <div class="tab" [class.active]="activeTab === 'government'" (click)="setActiveTab('government')">Government
+            </div>
+        </div>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" formControlName="firstName" placeholder="Enter your first name"
+                        class="form-control">
+                    <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched"
+                        class="error-message">
+                        First name is required.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" formControlName="lastName" placeholder="Enter your last name"
+                        class="form-control">
+                    <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched"
+                        class="error-message">
+                        Last name is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" formControlName="email" placeholder="Enter your email"
+                        class="form-control">
+                    <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+                        class="error-message">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password *</label>
+                    <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+                        placeholder="Enter your password" class="form-control">
+                    <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+                        class="error-message">
+                        Password must be at least 6 characters.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="address">Address *</label>
+                    <input type="text" id="address" formControlName="address" placeholder="Enter your address"
+                        class="form-control">
+                    <div *ngIf="registerForm.get('address')?.invalid && registerForm.get('address')?.touched"
+                        class="error-message">
+                        Address is required.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="pincode">Pincode *</label>
+                    <input type="text" id="pincode" formControlName="pincode" placeholder="Enter your pincode"
+                        class="form-control" (blur)="lookupPincode()">
+                    <div *ngIf="registerForm.get('pincode')?.invalid && registerForm.get('pincode')?.touched"
+                        class="error-message">
+                        Pincode is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">City *</label>
+                    <input type="text" id="city" formControlName="city" placeholder="Enter your city"
+                        class="form-control">
+                    <div *ngIf="registerForm.get('city')?.invalid && registerForm.get('city')?.touched"
+                        class="error-message">
+                        City is required.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State *</label>
+                    <input type="text" id="state" formControlName="state" placeholder="Enter your state"
+                        class="form-control">
+                    <div *ngIf="registerForm.get('state')?.invalid && registerForm.get('state')?.touched"
+                        class="error-message">
+                        State is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="country">Country *</label>
+                    <input type="text" id="country" formControlName="country" placeholder="Enter your country"
+                        class="form-control">
+                    <div *ngIf="registerForm.get('country')?.invalid && registerForm.get('country')?.touched"
+                        class="error-message">
+                        Country is required.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="mobileNumber">Mobile Number *</label>
+                    <input type="tel" id="mobileNumber" formControlName="mobileNumber"
+                        placeholder="Enter your mobile number" class="form-control">
+                    <div *ngIf="registerForm.get('mobileNumber')?.invalid && registerForm.get('mobileNumber')?.touched"
+                        class="error-message">
+                        Mobile number is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fax">Fax</label>
+                    <input type="text" id="fax" formControlName="fax" placeholder="Enter your fax number (optional)"
+                        class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" formControlName="phone"
+                        placeholder="Enter your phone number (optional)" class="form-control">
+                </div>
+            </div>
+
+            <div *ngIf="errorMessage" class="alert alert-danger">
+                {{ errorMessage }}
+            </div>
+
+            <button type="submit" class="btn-register" [disabled]="registerForm.invalid || isSubmitting">
+                Register
+            </button>
+
+            <div class="login-link">
+                Already have an account? <a routerLink="/login">Login</a>
+            </div>
+        </form>
+    </div>
+</div>

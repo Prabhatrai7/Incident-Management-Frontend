@@ -1,0 +1,19 @@
+<div class="app-container">
+  <header *ngIf="currentUser">
+    <div class="header-content">
+      <h1>{{ title }}</h1>
+      <div class="user-info">
+        <span>Welcome, {{ currentUser.firstName }} {{ currentUser.lastName }}</span>
+        <button class="btn-logout" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Incident Management System</p>
+  </footer>
+</div>
